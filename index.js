@@ -32,7 +32,7 @@ try {
 
                     const stdout = execSync(`${executeWith} ${scriptName} ${asAdmin ? ' -RunAsAdmin' : ''}`);
 
-                    console.log('stdout ', stdout);
+                    console.log('stdout ', stdout.toLocaleString());
                 }
             });
         });
