@@ -3,31 +3,40 @@ const github = require('@actions/github');
 const fs = require('fs');
 const https = require('https');
 
-try{
-// File URL
-const url = 'https://get.scoop.sh';
+try {
+    // File URL
+    const url = 'https://get.scoop.sh';
 
-const asAdmin = core.getInput('allow-install-as-admin');
-const ext = core.getInput('extension').trim('.');
+    const asAdmin = core.getInput('allow-install-as-admin');
+    const ext = core.getInput('extension').trim('.');
+    const scriptName = `~\\install-scoop.${ext}`;
 
-// Download the file
-https.get(url, (res) => {
+    // Download the file
+    https.get(url, (res) => {
 
-    // Open file in local filesystem
-    const file = fs.createWriteStream(`~\install-scoop.${ext}`);
+        // Open file in local filesystem
+        const file = fs.createWriteStream(scriptName);
 
-    // Write data into local file
-    res.pipe(file);
+        // Write data into local file
+        res.pipe(file);
 
-    // Close the file
-    file.on('finish', () => {
-        file.close();
-        console.log(`~\install-scoop.${ext} downloaded!`);
+        // Close the file
+        file.on('finish', () => {
+            file.close();
+
+            const { execSync } = require('child_process');
+            // stderr is sent to stdout of parent process
+            // you can set options.stdio if you want it to go elsewhere
+            const stdout = execSync(scriptName + (asAdmin ? ' -RunAsAdmin' : ''));
+
+            console.log('stdout ', child.stdout);
+            if (child.error) { console.error('error', child.error); }
+            if (child.stderr) { console.error('stderr ', child.stderr); }
+        });
+
+    }).on("error", (err) => {
+        console.error("Error: ", err.message);
     });
-
-}).on("error", (err) => {
-    console.error("Error: ", err.message);
-});
-} catch(e) {
+} catch (e) {
     console.error(e);
 }
