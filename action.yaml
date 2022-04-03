@@ -1,0 +1,13 @@
+name: 'Install Scoop'
+description: 'Installs the Scoop Installer'
+inputs:
+  allow-install-as-admin:
+    required: false
+    default: true
+  extension:
+    required: false
+    default: 'ps1'
+runs:
+  using: 'node16'
+  main: 'index.js'
+
