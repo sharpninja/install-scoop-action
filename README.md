@@ -14,7 +14,9 @@ Extension of the script downloaded. Default `ps1`.
 
 ## Example usage
 
-uses: actionssharpninja/install-scoop-action@v1.1
+```yaml
+uses: sharpninja/install-scoop-action@master
 with:
   allow-install-as-admin: true
   extension: 'ps1'
+```
