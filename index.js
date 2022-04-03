@@ -25,16 +25,19 @@ try {
 
         // Close the file
         file.on('finish', () => {
-            file.close();
+            file.close((err) => {
+                if (err) { console.error('error', err); }
+                else {
+                    const { execSync } = require('child_process');
+                    // stderr is sent to stdout of parent process
+                    // you can set options.stdio if you want it to go elsewhere
+                    const stdout = execSync(`${executeWith} ${scriptName} ${asAdmin ? ' -RunAsAdmin' : ''}`);
 
-            const { execSync } = require('child_process');
-            // stderr is sent to stdout of parent process
-            // you can set options.stdio if you want it to go elsewhere
-            const stdout = execSync(`${executeWith} ${scriptName} ${asAdmin ? ' -RunAsAdmin' : ''}`);
-
-            console.log('stdout ', child.stdout);
-            if (child.error) { console.error('error', child.error); }
-            if (child.stderr) { console.error('stderr ', child.stderr); }
+                    console.log('stdout ', child.stdout);
+                    if (child.error) { console.error('error', child.error); }
+                    if (child.stderr) { console.error('stderr ', child.stderr); }
+                }
+            });
         });
 
     }).on("error", (err) => {
