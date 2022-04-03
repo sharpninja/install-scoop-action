@@ -30,9 +30,14 @@ try {
                 else {
                     const { execSync } = require('child_process');
 
-                    const stdout = execSync(`${executeWith} ${scriptName} ${asAdmin ? ' -RunAsAdmin' : ''}`);
+                    const command = `${executeWith} ${scriptName} ${asAdmin ? ' -RunAsAdmin' : ''}`;
 
-                    console.log('stdout ', stdout.toLocaleString());
+                    console.log(`Executing: ${command}`);
+
+                    const stdout = execSync(command);
+
+                    console.log(`stdout.byteLength: ${stdout.byteLength}`);
+                    console.log(`stdout: ${stdout.toString()}`);
                 }
             });
         });
