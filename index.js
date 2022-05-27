@@ -37,8 +37,10 @@ try {
 
     // Download the file
     https.get(url, (res) => {
-        const body = res.read();
-        dbg(body)
+        const statusCode = res.statusCode;
+        const statusMsg = res.statusMessage;
+
+        dbg(statusCode, statusMsg)
 
         // Open file in local filesystem
         const file = fs.createWriteStream(scriptName);
@@ -52,7 +54,7 @@ try {
                 if (err) { console.error('error', err); }
                 else {
                     const scr = fs.readFileSync(scriptName).toString();
-                    dbg(scr.length, scr);
+                    dbg(scr?.length, scr);
 
                     const { execSync } = require('child_process');
 
