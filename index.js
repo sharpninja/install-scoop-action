@@ -14,9 +14,9 @@ function err(toLog) {
     console.error('[Install Scoop]', toLog);
 }
 
-function dbg(toLog) {
+function dbg(...toLog) {
     if (_debug) {
-        console.log('[Install Scoop][debug]', toLog);
+        console.log('[Install Scoop][debug]', ...toLog);
     }
 }
 
@@ -51,7 +51,9 @@ try {
             file.close((err) => {
                 if (err) { console.error('error', err); }
                 else {
-                    dbg(fs.readFileSync(scriptName).toString())
+                    const scr = fs.readFileSync(scriptName).toString();
+                    dbg(scr.length, scr);
+
                     const { execSync } = require('child_process');
 
                     const command = `${executeWith} ${scriptName} ${asAdmin ? ' -RunAsAdmin' : ''}`;
