@@ -14,7 +14,7 @@ function err(toLog) {
     console.error('[Install Scoop]', toLog);
 }
 
-function debug(toLog) {
+function dbg(toLog) {
     if (_debug) {
         console.log('[Install Scoop][debug]', toLog);
     }
@@ -31,11 +31,11 @@ try {
 
     const executeWith = ext === 'ps1' ? shell : ext === 'bat' ? 'cmd' : '/bin/bash';
 
-    debug("Debug mode enabled.");
+    dbg("Debug mode enabled.");
 
     // Download the file
     https.get(url, (res) => {
-        debug(res)
+        dbg(res)
 
         // Open file in local filesystem
         const file = fs.createWriteStream(scriptName);
@@ -48,7 +48,7 @@ try {
             file.close((err) => {
                 if (err) { console.error('error', err); }
                 else {
-                    debug(fs.readFileSync(scriptName))
+                    dbg(fs.readFileSync(scriptName))
                     const { execSync } = require('child_process');
 
                     const command = `${executeWith} ${scriptName} ${asAdmin ? ' -RunAsAdmin' : ''}`;
