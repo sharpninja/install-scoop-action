@@ -4,7 +4,7 @@ const fs = require('fs');
 const https = require('https');
 const shell = "powershell";
 
-let debug = false;
+let _debug = false;
 
 function log(toLog) {
     console.log('[Install Scoop][info]', toLog);
@@ -15,7 +15,7 @@ function err(toLog) {
 }
 
 function debug(toLog) {
-    if (debug) {
+    if (_debug) {
         console.log('[Install Scoop][debug]', toLog);
     }
 }
@@ -24,7 +24,7 @@ try {
     // File URL
     const url = 'https://get.scoop.sh';
 
-    debug = core.getInput('debug') === true;
+    _debug = core.getInput('debug') === true;
     const asAdmin = core.getInput('allow-install-as-admin');
     const ext = core.getInput('extension').trim('.');
     const scriptName = `.\\install-scoop.${ext}`;
