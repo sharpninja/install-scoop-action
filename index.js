@@ -24,6 +24,7 @@ try {
     // File URL
     const url = 'https://get.scoop.sh';
 
+    log(`core.getInput('debug'): ${ core.getInput('debug') }`)
     _debug = core.getInput('debug') === true;
     const asAdmin = core.getInput('allow-install-as-admin');
     const ext = core.getInput('extension').trim('.');
