@@ -8,6 +8,7 @@ try {
     // File URL
     const url = 'https://get.scoop.sh';
 
+    const debug = core.getInput('debug') === true;
     const asAdmin = core.getInput('allow-install-as-admin');
     const ext = core.getInput('extension').trim('.');
     const scriptName = `.\\install-scoop.${ext}`;
@@ -16,6 +17,9 @@ try {
 
     // Download the file
     https.get(url, (res) => {
+        if (debug) {
+            console.log(res)
+        }
 
         // Open file in local filesystem
         const file = fs.createWriteStream(scriptName);
@@ -28,6 +32,9 @@ try {
             file.close((err) => {
                 if (err) { console.error('error', err); }
                 else {
+                    if (debug) {
+                        console.log(fs.readFileSync(scriptName))
+                    }
                     const { execSync } = require('child_process');
 
                     const command = `${executeWith} ${scriptName} ${asAdmin ? ' -RunAsAdmin' : ''}`;

@@ -21,4 +21,6 @@ jobs:
         with:
           allow-install-as-admin: true
           extension: 'ps1'
+          debug: true
+          
           

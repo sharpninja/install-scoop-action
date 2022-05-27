@@ -1,6 +1,9 @@
 name: 'Install Scoop'
 description: 'Installs the Scoop Installer'
 inputs:
+  debug:
+    required: false
+    default: false
   allow-install-as-admin:
     required: false
     default: true
@@ -10,4 +13,3 @@ inputs:
 runs:
   using: 'node16'
   main: 'index.js'
-
