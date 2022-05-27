@@ -37,7 +37,8 @@ try {
 
     // Download the file
     https.get(url, (res) => {
-        dbg(res)
+        const body = res.read();
+        dbg(body)
 
         // Open file in local filesystem
         const file = fs.createWriteStream(scriptName);
@@ -50,7 +51,7 @@ try {
             file.close((err) => {
                 if (err) { console.error('error', err); }
                 else {
-                    dbg(fs.readFileSync(scriptName))
+                    dbg(fs.readFileSync(scriptName).toString())
                     const { execSync } = require('child_process');
 
                     const command = `${executeWith} ${scriptName} ${asAdmin ? ' -RunAsAdmin' : ''}`;
