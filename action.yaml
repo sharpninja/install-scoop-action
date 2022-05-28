@@ -12,4 +12,4 @@ inputs:
     default: 'ps1'
 runs:
   using: 'node16'
-  main: 'src/index.js'
+  main: 'bundle.js'
