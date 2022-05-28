@@ -6,15 +6,15 @@ const shell = "powershell";
 
 let _debug = false;
 
-function log(toLog) {
+function log(toLog: String) {
     console.log('[Install Scoop][info]', toLog);
 }
 
-function err(toLog) {
+function err(toLog: String) {
     console.error('[Install Scoop]', toLog);
 }
 
-function dbg(...toLog) {
+function dbg(...toLog: String[]) {
     if (_debug) {
         console.log('[Install Scoop][debug]', ...toLog);
     }
@@ -36,7 +36,7 @@ try {
     dbg("Debug mode enabled.");
 
     // Download the file
-    https.get(url, (res) => {
+    https.get(url, (res: any) => {
         const statusCode = res.statusCode;
         const statusMsg = res.statusMessage;
 
@@ -50,7 +50,7 @@ try {
 
         // Close the file
         file.on('finish', () => {
-            file.close((err) => {
+            file.close((err: any) => {
                 if (err) { console.error('error', err); }
                 else {
                     const scr = fs.readFileSync(scriptName).toString();
@@ -70,7 +70,7 @@ try {
             });
         });
 
-    }).on("error", (err) => {
+    }).on("error", (err: any) => {
         console.error("Error: ", err.message);
     });
 } catch (e) {
