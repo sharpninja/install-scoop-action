@@ -38,7 +38,6 @@ jobs:
           git add bundle/bundle.js
           git commit -m "Built bundle"
           
-          gh auth login
           gh repo sync
 
       # Runs a set of commands using the runners shell
