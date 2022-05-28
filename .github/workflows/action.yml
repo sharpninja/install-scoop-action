@@ -30,7 +30,7 @@ jobs:
         env:
           GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
         run: |
-          gh repo sync --force
+          git remote set-url --push origin https://sharpninja:$GITHUB_TOKEN@github.com/sharpninja/install-scoop-action
 
           git config --add user.name "Github Actions"
           git config --add user.email "ninja@thesharp.ninja"
@@ -40,8 +40,7 @@ jobs:
           git add bundle/bundle.js
           git commit -m "Built bundle"
           
-          git fetch
-          gh repo sync --force
+          git push
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
